@@ -1,0 +1,7 @@
+http://localhost:8000/greet
+
+
+### customer
+GET http://localhost:8000/customers
+
+ 

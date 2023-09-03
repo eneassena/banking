@@ -1,5 +1,7 @@
 package domain
 
+import "github.com/eneassena10/banking/errs"
+
 type CustomerRepositoryStub struct {
 	customers []Customer
 }
@@ -15,4 +17,12 @@ func NewCustomerRepositoryStub() CustomerRepositoryStub {
 	}
 
 	return CustomerRepositoryStub{customers: customers}
+}
+
+func (s CustomerRepositoryStub) ById(customer_id string) (*Customer, *errs.ApiError) {
+	customer := &Customer{Id: "1001", Name: "Pedro", City: "Salvador", ZipCode: "110011", DateOfBirth: "2023-05-06", Status: "1"}
+	if customer.Id != customer_id {
+		return nil, errs.NewNotFoundError("Customer not found")
+	}
+	return customer, nil
 }

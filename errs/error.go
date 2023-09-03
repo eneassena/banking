@@ -15,8 +15,8 @@ func (e ApiError) AsMessage() *ApiError {
 
 func NewNotFoundError(message string) *ApiError {
 	return &ApiError{
-		Message: message,
 		Code:    http.StatusNotFound,
+		Message: message,
 	}
 }
 

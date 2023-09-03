@@ -28,19 +28,19 @@ func NewCustomerRepositoryDb() CustomerRepositoryDb {
 	return CustomerRepositoryDb{client: client}
 }
 
-func (d CustomerRepositoryDb) FindAll() ([]Customer, error) {
+func (d CustomerRepositoryDb) FindAll() ([]Customer, *errs.ApiError) {
 	findAllQuery := "SELECT customer_id,name,date_of_birth,city,zipcode,status FROM customers"
 
 	rows, err := d.client.Query(findAllQuery)
 	if err != nil {
-		return nil, err
+		return nil, errs.NewUnexpectedError(err.Error())
 	}
 
 	customers := make([]Customer, 0)
 	for rows.Next() {
 		customer := Customer{}
 		if err := rows.Scan(&customer.Id, &customer.Name, &customer.DateOfBirth, &customer.City, &customer.ZipCode, &customer.Status); err != nil {
-			return nil, err
+			return nil, errs.NewUnexpectedError(err.Error())
 		}
 		customers = append(customers, customer)
 	}

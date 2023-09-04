@@ -63,3 +63,22 @@ func (d CustomerRepositoryDb) ById(id string) (*Customer, *errs.ApiError) {
 	}
 	return &c, nil
 }
+
+func (d CustomerRepositoryDb) FindByStatus(customer_status string) ([]Customer, *errs.ApiError) {
+	customerSql := "SELECT customer_id,name,date_of_birth,city,zipcode,status FROM customers where status=?"
+
+	rows, err := d.client.Query(customerSql, customer_status)
+	if err != nil {
+		return nil, errs.NewUnexpectedError(err.Error())
+	}
+
+	customers := make([]Customer, 0)
+	for rows.Next() {
+		customer := Customer{}
+		if err := rows.Scan(&customer.Id, &customer.Name, &customer.DateOfBirth, &customer.City, &customer.ZipCode, &customer.Status); err != nil {
+			return nil, errs.NewUnexpectedError(err.Error())
+		}
+		customers = append(customers, customer)
+	}
+	return customers, nil
+}

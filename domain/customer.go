@@ -14,4 +14,5 @@ type Customer struct {
 type CustomerRepository interface {
 	FindAll() ([]Customer, *errs.ApiError)
 	ById(string) (*Customer, *errs.ApiError)
+	FindByStatus(customer_status string) ([]Customer, *errs.ApiError)
 }

@@ -69,14 +69,14 @@ func (d CustomerRepositoryDb) FindByStatus(customer_status string) ([]Customer, 
 
 	rows, err := d.client.Query(customerSql, customer_status)
 	if err != nil {
-		return nil, errs.NewUnexpectedError(err.Error())
+		return nil, errs.NewUnexpectedError("Error database Unexpected")
 	}
 
 	customers := make([]Customer, 0)
 	for rows.Next() {
 		customer := Customer{}
 		if err := rows.Scan(&customer.Id, &customer.Name, &customer.DateOfBirth, &customer.City, &customer.ZipCode, &customer.Status); err != nil {
-			return nil, errs.NewUnexpectedError(err.Error())
+			return nil, errs.NewUnexpectedError("Error scanning customer")
 		}
 		customers = append(customers, customer)
 	}

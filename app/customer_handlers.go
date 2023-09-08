@@ -1,7 +1,6 @@
 package app
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/eneassena10/banking/domain"
@@ -27,7 +26,6 @@ var StatusMap = map[string]string{
 
 func (ch *CustomerHandlers) GetAllCustomers(w http.ResponseWriter, r *http.Request) {
 	queryURL := r.URL.Query().Get("status")
-	log.Println("queryURL: " + StatusMap[queryURL])
 
 	var customers []domain.Customer
 	var err *errs.ApiError

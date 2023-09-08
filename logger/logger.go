@@ -16,24 +16,24 @@ func init() {
 	encodedConfig.TimeKey = "timestamp"
 	encodedConfig.MessageKey = "message"
 	encodedConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	encodedConfig.StacktraceKey = ""
 	config.EncoderConfig = encodedConfig
 
 	log, err = config.Build(zap.AddCallerSkip(1))
-
 	// log, err = zap.NewProduction(zap.AddCallerSkip(1))
 	if err != nil {
 		panic(err)
 	}
 }
 
-func Info(messager string, fields ...zap.Field) {
-	log.Info(messager, fields...)
+func Info(message string, fields ...zap.Field) {
+	log.Info(message, fields...)
 }
 
-func Debug(messager string, fields ...zap.Field) {
-	log.Debug(messager, fields...)
+func Debug(message string, fields ...zap.Field) {
+	log.Debug(message, fields...)
 }
 
-func Error(messager string, fields ...zap.Field) {
-	log.Error(messager, fields...)
+func Error(message string, fields ...zap.Field) {
+	log.Error(message, fields...)
 }

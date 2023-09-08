@@ -1,7 +1,11 @@
-http://localhost:8000/greet
+http://localhost:8000/customers/2000
+
+
+### customer
+GET http://localhost:8000/customers?status=inactive
+
 
 
 ### customer
 GET http://localhost:8000/customers
-
  

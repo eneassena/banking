@@ -6,7 +6,7 @@ type CustomerRepositoryStub struct {
 	customers []Customer
 }
 
-func (s CustomerRepositoryStub) FindAll() ([]Customer, error) {
+func (s CustomerRepositoryStub) FindAll() ([]Customer, *errs.ApiError) {
 	return s.customers, nil
 }
 
@@ -15,7 +15,6 @@ func NewCustomerRepositoryStub() CustomerRepositoryStub {
 		{Id: "1001", Name: "Pedro", City: "Salvador", ZipCode: "110011", DateOfBirth: "2023-05-06", Status: "1"},
 		{Id: "1001", Name: "Lucas", City: "Feira de Santana", ZipCode: "220022", DateOfBirth: "2023-08-10", Status: "1"},
 	}
-
 	return CustomerRepositoryStub{customers: customers}
 }
 
@@ -25,4 +24,8 @@ func (s CustomerRepositoryStub) ById(customer_id string) (*Customer, *errs.ApiEr
 		return nil, errs.NewNotFoundError("Customer not found")
 	}
 	return customer, nil
+}
+
+func (s CustomerRepositoryStub) FindByStatus(customer_status string) ([]Customer, *errs.ApiError) {
+	return []Customer{}, nil
 }

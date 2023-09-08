@@ -1,0 +1,7 @@
+{
+    "level": "error",
+    "timestamp": "2023-09-07T21:40:03.253-0300",
+    "caller": "banking/main.go:10",
+    "message": "Starting our application",
+    "stacktrace": "main.main\n\t/home/eneassena/go/src/dev_community_go/banking/main.go:10\nruntime.main\n\t/snap/go/10319/src/runtime/proc.go:267"
+}

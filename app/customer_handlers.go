@@ -19,40 +19,19 @@ type CustomerHandlers struct {
 	service service.CustomerService
 }
 
-var StatusMap = map[string]string{
-	"active":   "1",
-	"inactive": "0",
-}
-
 func (ch *CustomerHandlers) GetAllCustomers(w http.ResponseWriter, r *http.Request) {
-	queryURL := r.URL.Query().Get("status")
+	status := r.URL.Query().Get("status")
 
 	var customers []domain.Customer
 	var err *errs.ApiError
 
-	customer_status := StatusMap[queryURL]
-	if queryURL != "" {
-		customers, err = ch.service.GetByStatusCustomer(customer_status)
-		if err != nil {
-			writeResponse(w, err.Code, err.AsMessage())
-			return
-		}
-		writeResponse(w, http.StatusOK, customers)
-		return
-	}
-
-	customers, err = ch.service.GetAllCustomer()
+	customers, err = ch.service.GetAllCustomer(status)
 	if err != nil {
 		writeResponse(w, err.Code, err.AsMessage())
 		return
 	}
 
-	if err != nil {
-		writeResponse(w, err.Code, err.AsMessage())
-		return
-	} else {
-		writeResponse(w, http.StatusOK, customers)
-	}
+	writeResponse(w, http.StatusOK, customers)
 }
 
 func (ch *CustomerHandlers) GetCustomer(w http.ResponseWriter, r *http.Request) {

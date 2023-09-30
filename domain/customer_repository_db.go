@@ -13,11 +13,6 @@ type CustomerRepositoryDb struct {
 	client *sqlx.DB
 }
 
-func NewCustomerRepositoryDb() CustomerRepositoryDb {
-	connectMysql := ConnectMysql{}
-	return CustomerRepositoryDb{client: connectMysql.DBClient()}
-}
-
 func (d CustomerRepositoryDb) FindAll(status string) ([]Customer, *errs.ApiError) {
 	customers := make([]Customer, 0)
 	var err error
@@ -54,4 +49,8 @@ func (d CustomerRepositoryDb) ById(id string) (*Customer, *errs.ApiError) {
 	}
 
 	return &c, nil
+}
+
+func NewCustomerRepositoryDb(dbClient *sqlx.DB) CustomerRepositoryDb {
+	return CustomerRepositoryDb{client: dbClient}
 }

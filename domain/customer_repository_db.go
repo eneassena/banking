@@ -2,7 +2,6 @@ package domain
 
 import (
 	"database/sql"
-	"time"
 
 	"github.com/eneassena10/banking/errs"
 	"github.com/eneassena10/banking/logger"
@@ -15,19 +14,8 @@ type CustomerRepositoryDb struct {
 }
 
 func NewCustomerRepositoryDb() CustomerRepositoryDb {
-	client, err := sqlx.Open("mysql", "root:Jose123_+#@tcp(127.0.0.1:3306)/banking")
-	if err != nil {
-		logger.Error(err.Error())
-	}
-
-	// See "Important settings" section.
-	client.SetConnMaxLifetime(time.Minute * 3)
-	client.SetMaxOpenConns(10)
-	client.SetMaxIdleConns(10)
-	if err := client.Ping(); err != nil {
-		logger.Error(err.Error())
-	}
-	return CustomerRepositoryDb{client: client}
+	connectMysql := ConnectMysql{}
+	return CustomerRepositoryDb{client: connectMysql.DBClient()}
 }
 
 func (d CustomerRepositoryDb) FindAll(status string) ([]Customer, *errs.ApiError) {

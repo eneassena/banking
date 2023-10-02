@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"github.com/eneassena10/banking/domain/dto"
+	"github.com/eneassena10/banking/dto"
 	"github.com/eneassena10/banking/errs"
 )
 

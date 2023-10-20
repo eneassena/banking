@@ -5,6 +5,8 @@ import (
 	"github.com/eneassena10/banking/errs"
 )
 
+const dbTSLayout = "2006-01-02 15:04:05"
+
 type Account struct {
 	AccountId   string
 	CustomerId  string
@@ -20,6 +22,12 @@ func (a Account) ToNewAccountResponse() dto.NewAccountResponse {
 	}
 }
 
+func (a Account) CanWithdraw(amount float64) bool {
+	return a.Amount < amount
+}
+
 type AccountRepository interface {
 	Save(Account) (*Account, *errs.ApiError)
+	SaveTransaction(t Transaction) (*Transaction, *errs.ApiError)
+	FindBy(accountId string) (*Account, *errs.ApiError)
 }

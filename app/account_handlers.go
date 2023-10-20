@@ -31,3 +31,5 @@ func (a AccountHandlers) NewAccount(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+// customer/2000/accounts/21231

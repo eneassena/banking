@@ -27,7 +27,7 @@ func NewUnexpectedError(message string) *ApiError {
 	}
 }
 
-func NewValidateError(message string) *ApiError {
+func NewValidationError(message string) *ApiError {
 	return &ApiError{
 		Code:    http.StatusUnprocessableEntity,
 		Message: message,

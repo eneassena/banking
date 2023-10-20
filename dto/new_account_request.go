@@ -18,10 +18,10 @@ func (r *NewAccountRequest) Validate() *errs.ApiError {
 		Checking = "checking"
 	)
 	if r.Amount > 5000 {
-		return errs.NewValidateError("To open a new account you need to deposit atleast 5000.00")
+		return errs.NewValidationError("To open a new account you need to deposit atleast 5000.00")
 	}
 	if strings.ToLower(r.AccountType) != Saving && strings.ToLower(r.AccountType) != Checking {
-		return errs.NewValidateError("Account type should be checking or serving")
+		return errs.NewValidationError("Account type should be checking or serving")
 	}
 	return nil
 }
